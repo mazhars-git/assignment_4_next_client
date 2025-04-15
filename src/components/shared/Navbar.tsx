@@ -1,51 +1,77 @@
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-
-const { Header, Content, Footer } = Layout;
-
-const items = Array.from({ length: 5 }).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}));
+import { Heart, ShoppingBag } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
   return (
-    <Layout className="min-h-svh">
-      <Header style={{ display: "flex", alignItems: "center" }}>
-        <div className="demo-logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={items}
-          style={{ flex: 1, minWidth: 0 }}
-        />
-      </Header>
-      <Content style={{ padding: "0 48px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <div
-          style={{
-            background: colorBgContainer,
-            minHeight: 280,
-            padding: 24,
-            borderRadius: borderRadiusLG,
-          }}
-        >
-          Content
-        </div>
-      </Content>
+    <header className="border-b w-full">
+      <div className="container flex justify-between items-center mx-auto h-16 px-5">
+        <h1 className="text-2xl font-black">StShop</h1>
 
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
-      </Footer>
-    </Layout>
+        <div className="max-w-md flex-grow">
+          <input
+            type="text"
+            placeholder="Search for products"
+            className="w-full max-w-6xl border border-gray-300 rounded-full py-2 px-5"
+          />
+        </div>
+
+        <nav className="flex gap-2">
+          <Button variant="outline" className="rounded-full p-0 size-10">
+            <Heart />
+          </Button>
+
+          <Button variant="outline" className="rounded-full p-0 size-10">
+            <ShoppingBag />
+          </Button>
+
+          <>
+            <Button className="rounded-full">Create Shop</Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>User</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>
+                  {/* <Link to={`/${user?.role}/dashboard`}>
+                    Dashboard
+                    </Link> */}
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem>My Shop</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="bg-red-500 cursor-pointer"
+                  // onClick={handleLogOut}
+                >
+                  {/* <LogOut /> */}
+                  <span>Log Out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
+
+          <Button className="rounded-full" variant="outline">
+            Login
+          </Button>
+        </nav>
+      </div>
+    </header>
   );
 };
 
