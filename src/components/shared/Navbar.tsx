@@ -1,5 +1,5 @@
-import { Heart, ShoppingBag } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,9 @@ const Navbar = () => {
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-5">
-        <h1 className="text-2xl font-black">StShop</h1>
+        <NavLink to="/">
+          <h1 className="text-2xl font-black">StShop</h1>
+        </NavLink>
 
         <div className="max-w-md flex-grow">
           <input
@@ -27,15 +29,10 @@ const Navbar = () => {
 
         <nav className="flex gap-2">
           <Button variant="outline" className="rounded-full p-0 size-10">
-            <Heart />
-          </Button>
-
-          <Button variant="outline" className="rounded-full p-0 size-10">
             <ShoppingBag />
           </Button>
-
           <>
-            <Button className="rounded-full">Create Shop</Button>
+            <Button className="rounded-full">Shop</Button>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
@@ -65,10 +62,11 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </>
-
-          <Button className="rounded-full" variant="outline">
-            Login
-          </Button>
+          <NavLink to="/login">
+            <Button className="rounded-full" variant="outline">
+              Login
+            </Button>
+          </NavLink>
         </nav>
       </div>
     </header>
