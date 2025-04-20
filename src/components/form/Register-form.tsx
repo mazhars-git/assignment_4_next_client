@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import signupImg from "@/assets/images/signup.png";
+import { NavLink } from "react-router-dom";
 
 export function RegisterForm({
   className,
@@ -79,9 +80,9 @@ export function RegisterForm({
               </div>
               <div className="text-center text-sm">
                 Already have an account?{" "}
-                <a href="/login" className="underline underline-offset-4">
+                <NavLink to="/login" className="underline text-sky-400">
                   Login
-                </a>
+                </NavLink>
               </div>
             </div>
           </form>
