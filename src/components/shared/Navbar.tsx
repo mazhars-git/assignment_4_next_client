@@ -1,4 +1,4 @@
-import { ShoppingBag } from "lucide-react";
+import { LogOut, ShoppingBag } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import {
   DropdownMenu,
@@ -10,8 +10,15 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logout, useCurrentUser } from "@/redux/services/auth/authSlice";
 
 const Navbar = () => {
+  const user = useAppSelector(useCurrentUser);
+  const dispatch = useAppDispatch();
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-5">
@@ -37,39 +44,42 @@ const Navbar = () => {
             </Button>
           </NavLink>
 
-          <>
-            <Button className="rounded-full">Shop</Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>User</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>
-                  <NavLink to={`/dashboard`}>Dashboard</NavLink>
-                </DropdownMenuItem>
-                <DropdownMenuItem>My Shop</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="bg-red-500 cursor-pointer"
-                  // onClick={handleLogOut}
-                >
-                  {/* <LogOut /> */}
-                  <span>Log Out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-          <NavLink to="/login">
-            <Button className="rounded-full" variant="outline">
-              Login
-            </Button>
-          </NavLink>
+          {user?.email ? (
+            <>
+              <Button className="rounded-full">Shop</Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>User</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>{user.email}</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <NavLink to={`/dashboard`}>Dashboard</NavLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>My Shop</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="bg-red-400 cursor-pointer"
+                    onClick={handleLogOut}
+                  >
+                    <LogOut />
+                    <span>Log Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <NavLink to="/login">
+              <Button className="rounded-full" variant="outline">
+                Login
+              </Button>
+            </NavLink>
+          )}
         </nav>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import App from "@/App";
 import AdminLayout from "@/components/layout/AdminLayout";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import About from "@/pages/About";
 import AllProducts from "@/pages/AllProducts";
 import Dashboard from "@/pages/Dashboard/Dashboard";
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -50,6 +55,16 @@ const router = createBrowserRouter([
       //     element: <ManageOrders />,
       //   },
     ],
+  },
+
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        {" "}
+        <About />
+      </ProtectedRoute>
+    ),
   },
 
   {

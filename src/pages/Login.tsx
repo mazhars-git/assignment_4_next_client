@@ -1,26 +1,16 @@
 import { Button } from "@/components/ui/button";
-
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { z } from "zod";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
-import loginImg from "../assets/images/lgoin.png";
+import loginImg from "../assets/images/login.png";
 import { useLoginMutation } from "@/redux/services/auth/authApi";
 import { useAppDispatch } from "@/redux/hooks";
-import { setUser } from "@/redux/services/auth/authSlice";
+import { setUser, TUser } from "@/redux/services/auth/authSlice";
 import { verifyToken } from "@/utils/verifyToken";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { register, handleSubmit } = useForm({
@@ -35,15 +25,22 @@ const Login = () => {
   console.log(data, error);
 
   const onSubmit = async (data) => {
-    const userInfo = {
-      email: data.email,
-      password: data.password,
-    };
-    const res = await login(userInfo).unwrap();
-    console.log(res);
+    const toastId = toast.loading("Logging in");
+    try {
+      const userInfo = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await login(userInfo).unwrap();
+      console.log(res);
 
-    const user = verifyToken(res.data.accessToken);
-    dispatch(setUser({ user: user, token: res.data.accessToken }));
+      const user = verifyToken(res.data.accessToken) as TUser;
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      toast.success("Logged in", { id: toastId, duration: 2000 });
+      navigate("/");
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+    }
   };
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
