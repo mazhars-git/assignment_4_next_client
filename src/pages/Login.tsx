@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import loginImg from "../assets/images/login.png";
 import { useLoginMutation } from "@/redux/services/auth/authApi";
@@ -20,11 +20,9 @@ const Login = () => {
     },
   });
 
-  const [login, { data, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
-  console.log(data, error);
-
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
     try {
       const userInfo = {

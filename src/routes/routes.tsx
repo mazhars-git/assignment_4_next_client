@@ -38,22 +38,22 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <ProtectedRoute>
-        <AdminLayout />
+        <Dashboard />
       </ProtectedRoute>
     ),
     children: [
       {
-        index: true,
-        element: <Dashboard />,
+        path: "orders",
+        element: <About />,
       },
-      //   {
-      //     path: "manage-products",
-      //     element: <ManageProducts />,
-      //   },
-      //   {
-      //     path: "manage-orders",
-      //     element: <ManageOrders />,
-      //   },
+      {
+        path: "products",
+        element: <AllProducts />,
+      },
+      {
+        path: "manage-orders",
+        element: <AllProducts />,
+      },
     ],
   },
 
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         {" "}
-        <About />
+        <Dashboard />
       </ProtectedRoute>
     ),
   },

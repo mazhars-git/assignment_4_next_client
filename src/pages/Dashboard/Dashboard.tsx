@@ -1,7 +1,9 @@
+import Sidebar from "@/components/shared/Sidebar";
+
 const Dashboard = () => {
   return (
-    <div>
-      <h1>This is Dashboard</h1>
+    <div className="">
+      <Sidebar />
     </div>
   );
 };

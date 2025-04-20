@@ -1,6 +1,6 @@
 const AllProducts = () => {
   return (
-    <div>
+    <div className="flex justify-center min-h-svh">
       <h1>All products page</h1>
     </div>
   );
