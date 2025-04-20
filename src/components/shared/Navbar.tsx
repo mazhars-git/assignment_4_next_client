@@ -31,6 +31,12 @@ const Navbar = () => {
           <Button variant="outline" className="rounded-full p-0 size-10">
             <ShoppingBag />
           </Button>
+          <NavLink to={"/allProducts"}>
+            <Button variant="outline" className="rounded-full">
+              Products
+            </Button>
+          </NavLink>
+
           <>
             <Button className="rounded-full">Shop</Button>
             <DropdownMenu>
@@ -45,10 +51,7 @@ const Navbar = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>
-                  {/* <Link to={`/${user?.role}/dashboard`}>
-                    Dashboard
-                    </Link> */}
-                  Dashboard
+                  <NavLink to={`/dashboard`}>Dashboard</NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem>My Shop</DropdownMenuItem>
                 <DropdownMenuSeparator />

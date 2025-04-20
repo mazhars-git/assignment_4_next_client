@@ -1,13 +1,10 @@
-import { Button } from "@/components/ui/button";
+import { RegisterForm } from "@/components/form/Register-form";
 
 const Signup = () => {
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center min-h-svh">
-        <h1 className="text-red-400 text-4xl font-bold">
-          This is Register page
-        </h1>
-        <Button>Submit</Button>
+    <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-3xl">
+        <RegisterForm />
       </div>
     </div>
   );
